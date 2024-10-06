@@ -1,0 +1,15 @@
+<ul id="navbar" class="tab-list" role="tablist">
+  <li role="presentation" *ngFor="let section of sections">
+    <button *ngIf="activeSection == section.name"
+      class="tab active" (click)="navigateTo(section.path)" role="tab" aria-selected="true">
+      {{section.name}}
+    </button>
+    <button *ngIf="activeSection != section.name" (click)="navigateTo(section.path)"
+      class="tab" role="tab" aria-selected="false">
+      {{section.name}}
+    </button>
+  </li>
+</ul>
+<div class="tab-content">
+  <ng-content></ng-content>
+</div>

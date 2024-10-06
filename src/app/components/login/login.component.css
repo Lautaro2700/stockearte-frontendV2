@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f4f8; /* Light blue-gray background for the body */
+}
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(167, 157, 140); /* Container background */
+    border-radius: 8px; /* Rounded corners */
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.login-form input,
+.login-form button {
+    width: 100%;
+    padding: 15px; /* Increased padding for inputs and buttons */
+    margin-top: 10px;
+    font-size: 1.2em; /* Increased font size for input and button text */
+    box-sizing: border-box;
+}
+h3, h2 {
+    font-size: 1.5em; /* Increased size for headers */
+    margin-bottom: 20px;
+}
+.error-message {
+    color: red;
+    font-size: 1em; /* Larger font size for error messages */
+    margin-top: 5px;
+    display: block;
+    background-color: white; /* White background for the error message */
+    padding: 5px; /* Added padding for better spacing */
+    border-radius: 5px; /* Slight rounding of the corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
+}

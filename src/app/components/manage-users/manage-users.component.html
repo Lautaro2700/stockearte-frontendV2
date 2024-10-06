@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <body id="admin-html">
+        <app-navbar
+            [activeSection]="'USUARIOS'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Usuarios</h2>
+                    <button *ngIf="showElement" class="new-user-btn" (click)="createUser()">
+                        <i class="fas fa-plus"></i> Nuevo usuario
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="showElement" class="header-right">
+              <form [formGroup]="filterForm" class="search-form" (ngSubmit)="searchUser()">
+                <input type="text" formControlName="filter" placeholder="Buscar" class="search-input">
+                <button type="submit" class="search-btn" [disabled]="!filterForm.valid">Buscar</button>
+                <button type="button" class="clean-btn" (click)="cleanFilter()">Limpiar</button>
+              </form>
+            </div>
+            <div *ngIf="users.length > 0" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-black">
+                    <thead class="text-xs uppercase text-black bg-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Nombre de usuario</th>
+                            <th scope="col" class="px-4 py-3">C&oacute;digo de tienda</th>
+                            <th scope="col" class="px-4 py-3">Habilitado</th>
+                            <th scope="col" class="px-4 py-3">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b" *ngFor="let user of filteredUsers; index as userIndex">
+                            <td class="px-4 py-3">{{user.username}}</td>
+                            <td class="px-4 py-3">{{user.storeCode}}</td>
+                            <td class="px-4 py-3 action-buttons" *ngIf="user.enabled; else elseBlock">                    
+                                <button class="disable-button-enabled" (click)="disableUser(user.userId!, user.password!, user.username!, user.firstName!, user.lastName!, false)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                            <ng-template #elseBlock> 
+                                <td class="px-4 py-3 action-buttons">                   
+                                    <button class="disable-button-disabled" (click)="disableUser(user.userId!, user.password!, user.username!, user.firstName!, user.lastName!, true)">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </td>
+                            </ng-template>
+                            <td class="px-4 py-3 action-buttons">
+                                <button class="edit-button" routerLink="/user/edit/{{user.userId}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

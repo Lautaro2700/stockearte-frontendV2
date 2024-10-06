@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <body id="admin-html">
+        <app-navbar
+            [activeSection]="'PRODUCTOS'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Productos</h2>
+                    <button *ngIf="showElement" class="new-product-btn" (click)="createProduct()">
+                        <i class="fas fa-plus"></i> Nuevo producto
+                    </button>
+                </div>
+            </div>
+            <div class="header-right">
+              <form [formGroup]="filterForm" class="search-form" (ngSubmit)="searchProduct()">
+                <input type="text" formControlName="search" placeholder="Buscar producto" class="search-input">
+                <button type="submit" class="search-btn" [disabled]="!filterForm.valid">Buscar</button>
+                <button type="button" class="clean-btn" (click)="cleanFilter()">Limpiar</button>
+              </form>
+            </div>
+            <div *ngIf="products.length > 0" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-black">
+                    <thead class="text-xs uppercase text-black bg-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">C&oacute;digo</th>
+                            <th scope="col" class="px-4 py-3">Nombre</th>
+                            <th scope="col" class="px-4 py-3">Tamaño</th>
+                            <th scope="col" class="px-4 py-3">Color</th>
+                            <th scope="col" class="px-4 py-3">Editar</th>
+                            <th *ngIf="showElement" scope="col" class="px-4 py-3">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b" *ngFor="let product of filteredProducts; index as productIndex">
+                            <td class="px-4 py-3 table-cell">{{product.codigo}}</td>
+                            <td class="px-4 py-3 table-cell">{{product.nombre}}</td>
+                            <td class="px-4 py-3 table-cell">{{product.talle}}</td>
+                            <td class="px-4 py-3 table-cell">{{product.color}}</td>
+                            <td class="px-4 py-3 action-buttons">
+                                <button class="edit-button" routerLink="/product/edit/{{product.id}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                            <td *ngIf="showElement" class="px-4 py-3 action-buttons">
+                                <button class="delete-button" (click)="deleteProduct(product.id!)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

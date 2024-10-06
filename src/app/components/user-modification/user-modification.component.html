@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/users">Usuarios</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<body>
+    <div class="container">
+        <form [formGroup]="validateUser" (ngSubmit)="onSubmit()" class="store-creation-form">
+            <h2>Editar Usuario</h2>
+            <div class="form-group">
+                <label for="username" class="col-label">Username*</label>
+                <input type="text" formControlName="username" id="username" maxlength="20" class="form-control" placeholder="Ingrese el c&oacute;digo" required>
+                <span class="error-message" *ngIf="validateUser.controls['username'].invalid && validateUser.controls['username'].touched">
+                    El nombre de usuario es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-label">Contraseña*</label>
+                <input type="text" formControlName="password" id="password" maxlength="20" class="form-control" placeholder="Ingrese la contraseña" required>
+                <span class="error-message" *ngIf="validateUser.controls['password'].invalid && validateUser.controls['password'].touched">
+                    La contraseña es obligatoria
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="firstName" class="col-label">Nombre*</label>
+                <input type="text" formControlName="firstName" id="firstName" maxlength="20" class="form-control" placeholder="Ingrese el nombre" required>
+                <span class="error-message" *ngIf="validateUser.controls['firstName'].invalid && validateUser.controls['firstName'].touched">
+                    El nombre es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="col-label">Apellido*</label>
+                <input type="text" formControlName="lastName" id="lastName" maxlength="20" class="form-control" placeholder="Ingrese el apellido" required>
+                <span class="error-message" *ngIf="validateUser.controls['lastName'].invalid && validateUser.controls['lastName'].touched">
+                    El apellido es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="storeId" class="col-label">Id de tienda</label>
+                <input type="number" formControlName="storeId" id="storeId" class="form-control" placeholder="Ingrese el id de tienda">
+            </div>
+            <div class="form-group radio-group">
+                <label><input type="radio" formControlName="enabled" id="enabled1" value="1">Habilitado</label>
+                <label><input type="radio" formControlName="enabled" id="enabled2" value="0">Deshabilitado</label>
+            </div>              
+            <button type="submit" class="btn btn-primary btn-default" value="Crear" id="cargar">Modificar</button>
+            <br>
+            <div *ngIf="response" class="error-message">{{response}}</div>
+        </form>
+    </div>
+</body>

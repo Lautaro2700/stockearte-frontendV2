@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stocks">Stocks</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<body>
+    <div class="container">
+        <form [formGroup]="validateStock" (ngSubmit)="onSubmit()" class="store-creation-form">
+            <h2>Editar Stock</h2>
+            <div class="form-group">
+                <label for="storeId" class="col-label">Id de tienda*</label>
+                <input type="number" formControlName="storeId" id="storeId" maxlength="20" class="form-control" placeholder="Ingrese el id de tienda" required>
+                <span class="error-message" *ngIf="validateStock.controls['storeId'].invalid && validateStock.controls['storeId'].touched">
+                    El id de la tienda es obligatoria
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="productId" class="col-label">Id de producto*</label>
+                <input type="number" formControlName="productId" id="productId" maxlength="20" class="form-control" placeholder="Ingrese el id de producto" required>
+                <span class="error-message" *ngIf="validateStock.controls['productId'].invalid && validateStock.controls['productId'].touched">
+                    El id del producto es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="quantity" class="col-label">Cantidad*</label>
+                <input type="number" formControlName="quantity" id="quantity" maxlength="20" class="form-control" placeholder="Ingrese la cantidad" required>
+                <span class="error-message" *ngIf="validateStock.controls['quantity'].invalid && validateStock.controls['quantity'].touched">
+                    La cantidad es obligatorio
+                </span>
+            </div>           
+            <button type="submit" class="btn btn-primary btn-default" value="Crear" id="cargar">Modificar</button>
+            <br>
+            <div *ngIf="response" class="error-message">{{response}}</div>
+        </form>
+    </div>
+</body>

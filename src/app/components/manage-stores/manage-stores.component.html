@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <body id="admin-html">
+        <app-navbar
+            [activeSection]="'TIENDAS'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Tiendas</h2>
+                    <button *ngIf="showElement" class="new-image-btn" (click)="createStore()">
+                        <i class="fas fa-plus"></i> Nueva tienda
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="showElement" class="header-right">
+              <form [formGroup]="filterForm" class="search-form" (ngSubmit)="searchStore()">
+                <input type="text" formControlName="filter" placeholder="Buscar" class="search-input">
+                <button type="submit" class="search-btn" [disabled]="!filterForm.valid">Buscar</button>
+                <button type="button" class="clean-btn" (click)="cleanFilter()">Limpiar</button>
+              </form>
+            </div>
+            <div *ngIf="stores.length > 0" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-black">
+                    <thead class="text-xs uppercase text-black bg-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">C&oacute;digo</th>
+                            <th scope="col" class="px-4 py-3">Habilitado</th>
+                            <th scope="col" class="px-4 py-3">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b" *ngFor="let store of filteredStores; index as storeIndex">
+                            <td class="px-4 py-3 table-cell">{{store.code}}</td>                        
+                            <td class="px-4 py-3 action-buttons" *ngIf="store.enabled; else elseBlock">                    
+                                <button class="disable-button-enabled" (click)="disableStore(store.storeId!, store.code!, store.address!, store.city!, store.province!, false)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                            <ng-template #elseBlock> 
+                                <td class="px-4 py-3 action-buttons">                   
+                                    <button class="disable-button-disabled" (click)="disableStore(store.storeId!, store.code!, store.address!, store.city!, store.province!, true)">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                </td>
+                            </ng-template>
+                            <td class="px-4 py-3 action-buttons">
+                                <button class="edit-button" routerLink="/store/edit/{{store.storeId}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

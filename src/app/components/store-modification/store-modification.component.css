@@ -1,0 +1,108 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(59, 78, 117);
+    padding: 10px 20px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.nav-button {
+    background-color: #151d3a;
+    color: rgb(253, 253, 253);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f4f8; /* Light blue-gray background for the body */
+}
+.container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 50px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(224, 199, 153); /* White background for the container */
+    border-radius: 8px; /* Rounded corners for a smoother look */
+}
+form {
+    width: 100%;
+}
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em; /* Increased font size for heading */
+}
+.error-message {
+    color: red;
+    font-size: 1em; /* Larger font size for error messages */
+    margin-top: 5px;
+    display: block;
+    background-color: white; /* White background for the error message */
+    padding: 5px; /* Added padding for better spacing */
+    border-radius: 5px; /* Slight rounding of the corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Added a subtle shadow */
+}
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px; /* Added margin bottom for spacing */
+}
+.radio-group label {
+    font-size: 1em; /* Increased font size for radio labels */
+    display: flex;
+    align-items: center;
+}
+input[type="radio"] {
+    margin-right: 10px; /* Increased margin for better spacing */
+}
+.btn-default {
+    display: block;
+    width: 100%;
+    padding: 15px; /* Increased padding for the submit button */
+    margin-top: 20px;
+    font-size: 1.1em; /* Increased font size for the button */
+}
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.col-label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+    width: 100%;
+}
+.form-control {
+    font-size: 0.875em;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.store-creation-form input,
+.store-creation-form button,
+.store-creation-form select,
+.store-creation-form textarea {
+    font-size: 0.875em;
+    padding: 5px;
+    box-sizing: border-box;
+}

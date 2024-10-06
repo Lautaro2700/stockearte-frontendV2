@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <body id="admin-html">
+        <app-navbar
+            [activeSection]="'STOCKS'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Stocks</h2>
+                    <button *ngIf="showElement" class="new-stock-btn" (click)="createStock()">
+                        <i class="fas fa-plus"></i> Nuevo stock
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="stocks.length > 0" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-black">
+                    <thead class="text-xs uppercase text-black bg-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Id de tienda</th>
+                            <th scope="col" class="px-4 py-3">Id de producto</th>
+                            <th scope="col" class="px-4 py-3">Cantidad</th>
+                            <th *ngIf="showElement" scope="col" class="px-4 py-3">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b" *ngFor="let stock of stocks; index as stockIndex">
+                            <td class="px-4 py-3 table-cell">{{stock.storeId}}</td>
+                            <td class="px-4 py-3 table-cell">{{stock.productId}}</td>
+                            <td class="px-4 py-3 table-cell">{{stock.quantity}}</td>
+                            <td *ngIf="showElement" class="px-4 py-3 action-buttons">
+                                <button class="edit-button" routerLink="/stock/edit/{{stock.id}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

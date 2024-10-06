@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<body>
+    <div class="container">
+        <form [formGroup]="validateStore" (ngSubmit)="onSubmit()" class="store-creation-form">
+            <h2>Editar Tienda</h2>
+            <div class="form-group">
+                <label for="code" class="col-label">C&oacute;digo*</label>
+                <input type="text" formControlName="code" id="code" maxlength="20" class="form-control" placeholder="Ingrese el c&oacute;digo" required>
+                <span class="error-message" *ngIf="validateStore.controls['code'].invalid && validateStore.controls['code'].touched">
+                    El c&oacute;digo es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="address" class="col-label">Direcci&oacute;n*</label>
+                <input type="text" formControlName="address" id="address" maxlength="50" class="form-control" placeholder="Ingrese la direcci&oacute;n" required>
+                <span class="error-message" *ngIf="validateStore.controls['address'].invalid && validateStore.controls['address'].touched">
+                    La direcci&oacute;n es obligatoria
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="city" class="col-label">Ciudad*</label>
+                <input type="text" formControlName="city" id="city" maxlength="50" class="form-control" placeholder="Ingrese la ciudad" required>
+                <span class="error-message" *ngIf="validateStore.controls['city'].invalid && validateStore.controls['city'].touched">
+                    La ciudad es obligatoria
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="province" class="col-label">Provincia*</label>
+                <input type="text" formControlName="province" id="province" maxlength="50" class="form-control" placeholder="Ingrese la provincia" required>
+                <span class="error-message" *ngIf="validateStore.controls['province'].invalid && validateStore.controls['province'].touched">
+                    La provincia es obligatoria
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="users" class="col-label">Usuarios*</label>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Seleccionar usuarios</mat-label>
+                    <mat-select formControlName="users" multiple>
+                        <mat-option *ngFor="let user of usersList" [value]="user">
+                            {{user}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="error-message" *ngIf="validateStore.controls['users'].invalid && validateStore.controls['users'].touched">
+                    Debe seleccionar al menos un usuario
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="products" class="col-label">Productos*</label>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Seleccionar productos</mat-label>
+                    <mat-select formControlName="products" multiple>
+                        <mat-option *ngFor="let product of productsList" [value]="product">
+                            {{product}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="error-message" *ngIf="validateStore.controls['products'].invalid && validateStore.controls['products'].touched">
+                    Debe seleccionar al menos un producto
+                </span>
+            </div>
+            <div class="form-group radio-group">
+                <label><input type="radio" formControlName="enabled" id="enabled1" value="1">Habilitado</label>
+                <label><input type="radio" formControlName="enabled" id="enabled2" value="0">Deshabilitado</label>
+            </div>              
+            <button type="submit" class="btn btn-primary btn-default" value="Crear" id="cargar">Modificar</button>
+            <br>
+            <div *ngIf="response" class="error-message">{{response}}</div>
+        </form>
+    </div>
+</body>

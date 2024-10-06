@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/products">Productos</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<body>
+    <div class="container">
+        <form [formGroup]="validateProduct" (ngSubmit)="onSubmit()" class="store-creation-form">
+            <h2>Editar Producto</h2>
+            <div class="form-group">
+                <label for="name" class="col-label">Nombre*</label>
+                <input type="text" formControlName="name" id="name" maxlength="20" class="form-control" placeholder="Ingrese el nombre" required>
+                <span class="error-message" *ngIf="validateProduct.controls['name'].invalid && validateProduct.controls['name'].touched">
+                    El nombre es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="size" class="col-label">Tamaño*</label>
+                <input type="text" formControlName="size" id="size" maxlength="20" class="form-control" placeholder="Ingrese el tamaño" required>
+                <span class="error-message" *ngIf="validateProduct.controls['size'].invalid && validateProduct.controls['size'].touched">
+                    El tamaño es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="color" class="col-label">Color*</label>
+                <input type="text" formControlName="color" id="color" maxlength="20" class="form-control" placeholder="Ingrese el color" required>
+                <span class="error-message" *ngIf="validateProduct.controls['color'].invalid && validateProduct.controls['color'].touched">
+                    El color es obligatorio
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="stores" class="col-label">Tiendas*</label>
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Seleccionar tiendas</mat-label>
+                    <mat-select formControlName="stores" multiple>
+                        <mat-option *ngFor="let store of storesList" [value]="store">
+                            {{ store }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="error-message" *ngIf="validateProduct.controls['stores'].invalid && validateProduct.controls['stores'].touched">
+                    Debe seleccionar al menos una tienda
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="photo" class="col-label">Foto</label>
+                <input type="text" formControlName="photo" id="photo" class="form-control" placeholder="Ingrese el nombre de la foto">
+            </div>             
+            <button type="submit" class="btn btn-primary btn-default" value="Crear" id="cargar">Modificar</button>
+            <br>
+            <div *ngIf="response" class="error-message">{{response}}</div>
+        </form>
+    </div>
+</body>
