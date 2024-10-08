@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <body id="admin-html">
+        <app-navbar [activeSection]="'ORDENES DE COMPRA'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Ordenes de Compra</h2>
+                    <button *ngIf="showElement" class="new-user-btn" (click)="createPurchaseOrder()">
+                        <i class="fas fa-plus"></i> Nueva Orden
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="purchaseOrders.length > 0" class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-black">
+                    <thead class="text-xs uppercase text-black bg-gray-200">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Estado</th>
+                            <th scope="col" class="px-4 py-3">Observaciones</th>
+                            <th scope="col" class="px-4 py-3">Fecha Solicitud</th>
+                            <th scope="col" class="px-4 py-3">Fecha Recepción</th>
+                            <th scope="col" class="px-4 py-3">Tienda</th>
+                            <th scope="col" class="px-4 py-3">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b" *ngFor="let order of purchaseOrders; index as orderIndex">
+                            <td class="px-4 py-3">{{order.estado}}</td>
+                            <td class="px-4 py-3">{{order.observaciones}}</td>
+                            <td class="px-4 py-3">{{order.fechaSolicitud | date:'shortDate'}}</td>
+                            <td class="px-4 py-3">{{order.fechaRecepcion | date:'shortDate'}}</td>
+                            <td class="px-4 py-3">{{order.idTienda}}</td>
+                            <td class="px-4 py-3 action-buttons">
+                                <button class="edit-button" routerLink="/purchase-order/edit/{{order.id}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service';
+import { ProductosService } from 'src/app/services/productos.service';
+import { Product } from 'src/app/models/product';
+import { TiendasService } from 'src/app/services/tiendas.service';
 
 @Component({
   selector: 'app-product-modification',
@@ -12,61 +15,97 @@ export class ProductModificationComponent {
   validateProduct: FormGroup;
   response: string | undefined;
   productId!: number;
-  storesList: string[] = [];
+  storesList: any[] = [];
 
   constructor(
     private authenticationService: AuthService,
     private route: ActivatedRoute,
+    private productosService: ProductosService,
+    private tiendasService: TiendasService,
     private router: Router
   ) {
     this.validateProduct = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      size: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      id: new FormControl(''),
+      nombre: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      talle: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      foto: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       color: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      photo: new FormControl(),
-      stores: new FormControl([], Validators.required),
+      stock: new FormControl(),
+      codigo: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      idTienda: new FormControl([], Validators.required),
     });
   }
   ngOnInit() {
-    this.getStores();
     this.route.params.subscribe(params => {
       this.productId = params['productId'];
       this.getProduct(this.productId);
     });
   }
-  getStores(){
-    this.storesList = []
-    //llamada al servicio {}
-    this.storesList = ['123WWW', '123WEE', '000X0X'];
-  }
   onSubmit(): void {
     this.response = "";
     if (this.validateProduct.valid) {
-      const name = this.validateProduct.get('name')?.value;
-      const size = this.validateProduct.get('size')?.value;
-      const color = this.validateProduct.get('color')?.value;
-      const photo = this.validateProduct.get('photo')?.value;
-      const stores = this.validateProduct.get('stores')?.value;
-      this.editProduct(name, size, color, photo, stores);
+      const product: Product = {
+        id: this.validateProduct.get('id')?.value, 
+        codigo: this.validateProduct.get('codigo')?.value,
+        nombre: this.validateProduct.get('nombre')?.value,
+        talle: this.validateProduct.get('talle')?.value,
+        color: this.validateProduct.get('color')?.value,
+        foto: this.validateProduct.get('foto')?.value,
+        stock: this.validateProduct.get('stock')?.value,
+        idTienda: this.validateProduct.get('idTienda')?.value,
+      };
+      this.editProduct(product);
     } else {
       this.response = "El formulario contiene errores. Por favor, verifique los campos.";
     }
   }
-  editProduct(name: string, size: string, color: string, photo: number, stores: string[]): void {
-    //llamada al servicio{}
-    this.router.navigate(["/products"]);
+  editProduct(product: Product): void {
+    this.productosService.editProduct(product).subscribe(response => {
+      if (response) {
+        this.router.navigate(["/products"]);
+      } else {
+        this.response = "El formulario contiene errores. Por favor, verifique los campos.";
+      }
+    });
   }
   getProduct(id: number): void {
-    //llamada al servicio {}
-    /*
-      this.validateImage.patchValue({
-        code: this.store.code,
-        name: this.store.name,
-        size: this.store.size,
-        color: this.store.color,
-        photo: this.store.photo,
-      });
-    */
+    const requestBody: Product = {
+        id: id
+    };
+    this.productosService.getProductDetail(requestBody).subscribe(response => {
+        if (response) {
+          this.validateProduct.patchValue({
+              id: response.id,
+              codigo: response.codigo,
+              nombre: response.nombre,
+              talle: response.talle,
+              color: response.color,
+              foto: response.foto,
+              stores: response.idTienda || [] 
+          });
+          const selectedStoreIds = response.idTienda || [];
+          this.loadStoresAndPatch(selectedStoreIds);
+        } else {
+            this.response = "Producto no encontrado.";
+        }
+    }, error => {
+        console.error("Error fetching product data:", error);
+        this.response = "Error al obtener datos del producto.";
+    });
+  }
+  loadStoresAndPatch(selectedStoreIds: number[]): void {
+    this.tiendasService.obtenerTiendas().subscribe({
+      next: (response) => {
+        this.storesList = response.stores;
+        const selectedStores = this.storesList
+          .filter(store => selectedStoreIds.includes(Number(store.storeId)))
+          .map(store => store.storeId); 
+        this.validateProduct.get('idTienda')?.setValue(selectedStores);
+      },
+      error: (error) => {
+        console.error('Error al obtener tiendas', error);
+      }
+    });
   }
   logout() {
     this.authenticationService.logout();

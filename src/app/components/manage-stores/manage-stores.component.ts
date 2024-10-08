@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth-service';
 import { Store } from 'src/app/models/stores';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TiendasService } from 'src/app/services/tiendas.service';
+import { StoreEdit } from 'src/app/models/storeEdit';
 
 @Component({
   selector: 'app-manage-stores',
@@ -58,8 +59,17 @@ export class ManageStoresComponent implements OnInit {
     this.activeFilter = false;
     this.filterForm.get('filter')?.setValue('');
   }
-  disableStore(id: number, code: string, address: string, city: string, province: string, enabled: boolean): void {
-    //llamada al servicio {}
+  disableStore(id: number, code: string, enabled: boolean): void {
+    const store: StoreEdit = {
+      storeId: id,
+      code: code,
+      enabled: enabled,
+    };
+    this.tiendasService.editarTienda(store).subscribe(response => {
+      if (response.success) {
+        this.getStores()
+      }
+    });
   }
   createStore(){
     this.router.navigate(['/store/creation']);

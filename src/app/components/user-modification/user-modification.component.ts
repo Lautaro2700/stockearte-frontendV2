@@ -59,7 +59,7 @@ export class UserModificationComponent {
       if (response.success) {
           this.router.navigate(["/users"]);
       } else {
-          this.response = response.error;
+          this.response = "El formulario contiene errores. Por favor, verifique los campos.";
       }
   });
   }

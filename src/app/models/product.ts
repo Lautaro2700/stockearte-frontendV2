@@ -1,8 +1,10 @@
 export interface Product { 
     id?: number;
-    codigo?: string;
     nombre?: string;
     talle?: string;
-    color?: string;
     foto?: string;
+    color?: string;
+    stock?: number;
+    codigo?: string;
+    idTienda?: number[];
 }
