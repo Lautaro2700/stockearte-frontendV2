@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth-service';
 import { User } from 'src/app/models/user';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { UserEdit } from 'src/app/models/userEdit';
 
 @Component({
   selector: 'app-manage-users',
@@ -45,23 +46,37 @@ export class ManageUsersComponent {
   }
   searchUser() {
     const searchTerm = this.filterForm.get('filter')?.value.toLowerCase();
-  if (searchTerm) {
-    this.filteredUsers = this.users.filter(user => 
-      (user.username?.toLowerCase().includes(searchTerm) || '' )|| 
-      (user.storeCode?.toLowerCase().includes(searchTerm) || '')
-    );
-  } else {
-    this.filteredUsers = this.users;
-  }
-  this.activeFilter = true;;
+    if (searchTerm) {
+      this.filteredUsers = this.users.filter(user => 
+        (user.username?.toLowerCase().includes(searchTerm) || '' )|| 
+        (user.storeCode?.toLowerCase().includes(searchTerm) || '')
+      );
+    } else {
+      this.filteredUsers = this.users;
+    }
+    this.activeFilter = true;;
   }
   cleanFilter() {
     this.filteredUsers = this.users;
     this.activeFilter = false;
     this.filterForm.get('filter')?.setValue('');
   }
-  disableUser(id: number, username: string, password: string, firstName: string, lastName: string, enabled: boolean): void {
-    //llamada al servicio {}
+  disableUser(id: number, username: string, password: string, firstName: string, lastName: string, storeId: number, enabled: boolean): void {
+    const user: UserEdit = {
+      userId: id,
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      storeId: storeId,
+      enabled: enabled,
+    };
+    console.log(user)
+    this.usuarioService.editarUsuario(user).subscribe(response => {
+      if (response.success) {
+        this.getUsers()
+      }
+    });  
   }
   createUser(){
     this.router.navigate(['/user/creation']);

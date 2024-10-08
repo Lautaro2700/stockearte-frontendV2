@@ -31,33 +31,35 @@ export class ManageProductsComponent implements OnInit {
     this.getProducts(this.showElement);
   }  
   getProducts(showElement: boolean){
+    const requestBody: Product = {
+      nombre : "GetAllList"
+    };
     if(showElement){
-    this.productosService.obtenerProductos().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.products = response.products;
-        this.filteredProducts = this.products;
-      },
-      error: (error) => {
-        console.error('Error al obtener productos', error);
-      }
-    });
-  } else {
-    this.productosService.obtenerProductos().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.products = response.products;
-        this.filteredProducts = this.products;
-      },
-      error: (error) => {
-        console.error('Error al obtener productos', error);
-      }
-    });
-  }
+      this.productosService.filtrarProducto(requestBody).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.products = response.products;
+          this.filteredProducts = this.products;
+        },
+        error: (error) => {
+          console.error('Error al obtener productos', error);
+        }
+      });
+    } else {
+      this.productosService.filtrarProducto(requestBody).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.products = response.products;
+          this.filteredProducts = this.products;
+        },
+        error: (error) => {
+          console.error('Error al obtener productos', error);
+        }
+      });
+    }
   }
   searchProduct() {
     const searchTerm = this.filterForm.get('search')?.value.toLowerCase();
-
     if (searchTerm) {
       this.filteredProducts = this.products.filter(product =>
         (product.codigo?.toLowerCase().includes(searchTerm) || '') ||

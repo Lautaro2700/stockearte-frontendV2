@@ -40,8 +40,8 @@
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Seleccionar usuarios</mat-label>
                     <mat-select formControlName="users" multiple>
-                        <mat-option *ngFor="let user of usersList" [value]="user">
-                            {{user}}
+                        <mat-option *ngFor="let user of usersList" [value]="user.userId">
+                            {{ user.username }} <!-- Adjust this to display the correct label for users -->
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -49,13 +49,14 @@
                     Debe seleccionar al menos un usuario
                 </span>
             </div>
+              
             <div class="form-group">
                 <label for="products" class="col-label">Productos*</label>
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>Seleccionar productos</mat-label>
                     <mat-select formControlName="products" multiple>
-                        <mat-option *ngFor="let product of productsList" [value]="product">
-                            {{product}}
+                        <mat-option *ngFor="let product of productsList" [value]="product.id">
+                        {{ product.nombre }} <!-- Adjust the displayed property as needed -->
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -63,6 +64,7 @@
                     Debe seleccionar al menos un producto
                 </span>
             </div>
+              
             <div class="form-group radio-group">
                 <label><input type="radio" formControlName="enabled" id="enabled1" value="1">Habilitado</label>
                 <label><input type="radio" formControlName="enabled" id="enabled2" value="0">Deshabilitado</label>

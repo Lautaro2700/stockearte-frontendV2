@@ -21,21 +21,11 @@ export class TiendasService {
       return this.http.post<any>(`${this.apiUrl}/create`, tienda);
     }
 
-    editarTienda(storeId: number, tienda: StoreEdit): Observable<any> {
-      const store = {
-          storeId: storeId,
-          code: tienda.code,
-          address: tienda.address,
-          city: tienda.city,
-          province: tienda.province,
-          enabled: tienda.enabled,
-          usersId: tienda.usersId,
-          productsId: tienda.productsId
-      };
-      return this.http.post<any>(`${this.apiUrl}/edit`, store);
+    editarTienda(tienda: StoreEdit): Observable<any>{
+      return this.http.post(`${this.apiUrl}/edit`, tienda);
     }
-
-  obtenerTiendaPorId(storeId: number): Observable<StoreEdit> {
-    return this.http.post<StoreEdit>(`${this.apiUrl}/get_store`, { storeId: Number(storeId) });
-  }
+    
+    obtenerTiendaPorId(storeId: number): Observable<{ store: StoreEdit }>{
+      return this.http.post<{ store: StoreEdit }>(`${this.apiUrl}/get_store`, { storeId: Number(storeId) });
+    }
 }

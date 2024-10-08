@@ -31,7 +31,7 @@ export class LoginComponent{
     //llamada al servicio de check user
     //llamada al servicio de get user
     //Se envia el id, si es null se envia 0
-    this.authService.login(0);
+    this.authService.login(1);
     //response = data
   }
 }

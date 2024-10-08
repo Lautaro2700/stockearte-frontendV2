@@ -35,13 +35,13 @@
                         <tr class="border-b" *ngFor="let store of filteredStores; index as storeIndex">
                             <td class="px-4 py-3 table-cell">{{store.code}}</td>                        
                             <td class="px-4 py-3 action-buttons" *ngIf="store.enabled; else elseBlock">                    
-                                <button class="disable-button-enabled" (click)="disableStore(store.storeId!, store.code!, store.address!, store.city!, store.province!, false)">
+                                <button class="disable-button-enabled" (click)="disableStore(store.storeId!, store.code!, false)">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
                             <ng-template #elseBlock> 
                                 <td class="px-4 py-3 action-buttons">                   
-                                    <button class="disable-button-disabled" (click)="disableStore(store.storeId!, store.code!, store.address!, store.city!, store.province!, true)">
+                                    <button class="disable-button-disabled" (click)="disableStore(store.storeId!, store.code!!, true)">
                                         <i class="fas fa-eye-slash"></i>
                                     </button>
                                 </td>

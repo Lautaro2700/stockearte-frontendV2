@@ -7,14 +7,6 @@
     <body id="admin-html">
         <app-navbar
             [activeSection]="'STOCKS'">
-            <div class="header">
-                <div class="header-left">
-                    <h2 class="text-black">Stocks</h2>
-                    <button *ngIf="showElement" class="new-stock-btn" (click)="createStock()">
-                        <i class="fas fa-plus"></i> Nuevo stock
-                    </button>
-                </div>
-            </div>
             <div *ngIf="stocks.length > 0" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-black">
                     <thead class="text-xs uppercase text-black bg-gray-200">

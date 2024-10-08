@@ -37,13 +37,13 @@
                             <td class="px-4 py-3">{{user.username}}</td>
                             <td class="px-4 py-3">{{user.storeCode}}</td>
                             <td class="px-4 py-3 action-buttons" *ngIf="user.enabled; else elseBlock">                    
-                                <button class="disable-button-enabled" (click)="disableUser(user.userId!, user.password!, user.username!, user.firstName!, user.lastName!, false)">
+                                <button class="disable-button-enabled" (click)="disableUser(user.userId!, user.username!, user.password!, user.firstName!, user.lastName!, user.storeId!, false)">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>
                             <ng-template #elseBlock> 
                                 <td class="px-4 py-3 action-buttons">                   
-                                    <button class="disable-button-disabled" (click)="disableUser(user.userId!, user.password!, user.username!, user.firstName!, user.lastName!, true)">
+                                    <button class="disable-button-disabled" (click)="disableUser(user.userId!, user.username!, user.password!, user.firstName!, user.lastName!, user.storeId!, true)">
                                         <i class="fas fa-eye-slash"></i>
                                     </button>
                                 </td>

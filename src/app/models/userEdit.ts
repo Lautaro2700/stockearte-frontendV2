@@ -4,7 +4,7 @@ export interface UserEdit {
     password?: string;
     firstName?: string;
     lastName?: string;
-    enabled?: string;
+    enabled?: boolean;
     storeId?: number;
 }
 

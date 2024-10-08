@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service';
 import { Stocks } from 'src/app/models/stocks';
+import { StockService } from 'src/app/services/stock.service';
 
 @Component({
   selector: 'app-manage-stocks',
@@ -13,7 +14,7 @@ export class ManageStocksComponent implements OnInit {
   showElement: boolean = false;
   constructor(
     private authenticationService: AuthService,
-    private router: Router
+    private stockService: StockService
   ){}
   ngOnInit() {
     const storeId = localStorage.getItem('storeId');
@@ -21,25 +22,15 @@ export class ManageStocksComponent implements OnInit {
     this.getStocks();
   }  
   getStocks(){
-    this.stocks = []
-    //llamada al servicio {}
-    this.stocks = [
-      {
-        id: 1,
-        storeId: 10,
-        productId: 15,
-        quantity: 10
+    this.stockService.obtenerStocks().subscribe(
+      (response) => {
+        console.log(response)
+        this.stocks = response.stocks; 
       },
-      {
-        id: 2,
-        storeId: 14,
-        productId: 20,
-        quantity: 15
+      (error) => {
+        console.error('Error al obtener stocks', error);
       }
-    ];
-  }
-  createStock(){
-    this.router.navigate(['/stock/creation']);
+  );
   }
   logout(){
     this.authenticationService.logout();
