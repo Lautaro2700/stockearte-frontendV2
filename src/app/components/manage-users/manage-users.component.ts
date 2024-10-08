@@ -36,7 +36,7 @@ export class ManageUsersComponent {
     const storeCode = '';
     this.usuarioService.obtenerUsuarios(username, storeCode).subscribe(
       (response) => {
-          this.users = response.users; // Asume que la respuesta es un array de usuarios
+          this.users = response.users; 
           this.filteredUsers = this.users;
       },
       (error) => {

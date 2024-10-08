@@ -32,7 +32,7 @@ export class ProductModificationComponent {
       color: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       stock: new FormControl(),
       codigo: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      idTienda: new FormControl([], Validators.required),  // Use 'idTienda' here
+      idTienda: new FormControl([], Validators.required),
     });
   }
   ngOnInit() {

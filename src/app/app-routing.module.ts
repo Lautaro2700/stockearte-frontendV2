@@ -14,7 +14,9 @@ import { ProductCreationComponent } from './components/product-creation/product-
 import { ProductModificationComponent } from './components/product-modification/product-modification.component';
 import { StockCreationComponent } from './components/stock-creation/stock-creation.component';
 import { StockModificationComponent } from './components/stock-modification/stock-modification.component';
-
+import { PurchaseOrderCreationComponent } from './components/purchase-order-creation/purchase-order-creation.component';
+import { PurchaseOrderModificationComponent } from './components/purchase-order-modification/purchase-order-modification.component';
+import { ManagePurchaseOrdersComponent } from './components/manage-purchase-order/manage-purchase-order.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,6 +24,7 @@ const routes: Routes = [
   {path: 'products', component: ManageProductsComponent, canActivate: [AuthService]},
   {path: 'stocks', component: ManageStocksComponent, canActivate: [AuthService]},
   {path: 'users', component: ManageUsersComponent, canActivate: [AuthService]},
+  {path: 'purchase-order', component: ManagePurchaseOrdersComponent, canActivate: [AuthService]},
   {path: 'store/creation', component: StoreCreationComponent, canActivate: [AuthService]},
   {path: 'store/edit/:storeId', component: StoreModificationComponent, canActivate: [AuthService]},
   {path: 'user/creation', component: UserCreationComponent, canActivate: [AuthService]},
@@ -30,6 +33,8 @@ const routes: Routes = [
   {path: 'product/edit/:productId', component: ProductModificationComponent, canActivate: [AuthService]},
   {path: 'stock/creation', component: StockCreationComponent, canActivate: [AuthService]},
   {path: 'stock/edit/:stockId', component: StockModificationComponent, canActivate: [AuthService]},
+  {path: 'purchase-order/creation', component: PurchaseOrderCreationComponent, canActivate: [AuthService]},
+  {path: 'purchase-order/edit/:id', component: PurchaseOrderModificationComponent, canActivate: [AuthService]},
   {path: '**', redirectTo: '/stores'}
 ];
 
