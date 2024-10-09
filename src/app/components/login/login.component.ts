@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginComponent{
   validateUser: FormGroup;
   response: string | undefined;
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private http: HttpClient
   ) {
     this.validateUser = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -28,10 +30,17 @@ export class LoginComponent{
     }
   }
   checkUser(username: string, password: string): void {
-    //llamada al servicio de check user
-    //llamada al servicio de get user
-    //Se envia el id, si es null se envia 0
-    this.authService.login(1);
-    //response = data
+    this.http.post<any>('http://localhost:5000/user/authenticate', { username, password })
+    .subscribe(response => {
+      if (response.success) {
+        const storeId = response.storeId !== null && response.storeId !== undefined ? response.storeId : 0;
+        console.log(storeId)
+        this.authService.login(storeId);
+      } else {
+        this.response = 'Usuario o contraseña incorrectos.';
+      }
+    }, error => {
+      this.response = 'Error en la autenticación. Inténtelo de nuevo.';
+    });
   }
 }

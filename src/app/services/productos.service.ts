@@ -29,4 +29,7 @@ export class ProductosService {
   editProduct(requestBody: Product): Observable<{ product: Product }>{
     return this.http.post<{ product: Product }>(`${this.apiUrl}/edit`, { requestBody });
   }
+  eliminarProducto(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/delete`, { body: { id: id } });
+  }
 }
