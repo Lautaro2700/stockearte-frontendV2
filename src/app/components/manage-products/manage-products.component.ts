@@ -79,7 +79,22 @@ export class ManageProductsComponent implements OnInit {
     this.filterForm.reset();
   }
   deleteProduct(id: number): void {
-    //llamada al servicio {}
+    if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+      this.productosService.eliminarProducto(id).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.filteredProducts = this.filteredProducts.filter(product => product.id !== id);
+            alert('Producto eliminado exitosamente');
+          } else {
+            alert('Error al eliminar el producto');
+          }
+        },
+        error: (error) => {
+          console.error('Error al eliminar el producto', error);
+          alert('Ocurrió un error al intentar eliminar el producto.');
+        }
+      });
+    }
   }
   createProduct(){
     this.router.navigate(['/product/creation']);

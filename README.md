@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ProyectoFront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.13.
@@ -25,3 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+=======
+# stockearte-frontendV2
+Nuevo Repositorio para el Frontend
+>>>>>>> b437d56ac32a45e5c54e18a62a1f18c2916ac0bb
