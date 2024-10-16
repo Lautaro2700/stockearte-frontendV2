@@ -52,12 +52,12 @@ export class ProductCreationComponent {
       const color = this.validateProduct.get('color')?.value;
       const photo = this.validateProduct.get('photo')?.value;
       const selectedStores = this.validateProduct.get('stores')?.value;
-    if (selectedStores && selectedStores.length > 0) {
-      const idTienda = selectedStores;
-      this.registerProduct(name, size, color, photo, idTienda);
-    } else {
-      this.response = "Debes seleccionar al menos una tienda.";
-    }
+      if (selectedStores && selectedStores.length > 0) {
+        const idTienda = selectedStores;
+        this.registerProduct(name, size, color, photo, idTienda);
+      } else {
+        this.response = "Debes seleccionar al menos una tienda.";
+      }
     } else {
       this.response = "El formulario contiene errores. Por favor, verifique los campos.";
     }

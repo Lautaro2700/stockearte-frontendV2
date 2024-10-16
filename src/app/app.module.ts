@@ -23,7 +23,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { PurchaseOrderCreationComponent } from './components/purchase-order-creation/purchase-order-creation.component';
-import { PurchaseOrderModificationComponent } from './components/purchase-order-modification/purchase-order-modification.component';
 import { ManagePurchaseOrdersComponent } from './components/manage-purchase-order/manage-purchase-order.component';
 
 @NgModule({
@@ -44,8 +43,7 @@ import { ManagePurchaseOrdersComponent } from './components/manage-purchase-orde
     ProductModificationComponent,
     StockCreationComponent,
     StockModificationComponent,
-    PurchaseOrderCreationComponent,
-    PurchaseOrderModificationComponent
+    PurchaseOrderCreationComponent
   ],
   imports: [
     BrowserModule,

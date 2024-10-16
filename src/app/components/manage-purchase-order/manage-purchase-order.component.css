@@ -15,7 +15,104 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+}/* General container for the filters */
+.filters-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
 }
+
+/* Each filter group */
+.filters-container .filter-group {
+    flex: 1 1 calc(25% - 16px); /* 4 columns layout with space between them */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+/* Labels for inputs */
+.filters-container label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Input fields */
+.filters-container input[type="text"],
+.filters-container input[type="date"],
+.filters-container select {
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.filters-container input[type="text"]:focus,
+.filters-container input[type="date"]:focus,
+.filters-container select:focus {
+    border-color: #3b4e75;
+    box-shadow: 0 0 5px rgba(59, 78, 117, 0.2);
+    outline: none;
+}
+
+/* Action buttons */
+.filters-container .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.filters-container button {
+    background-color: #1d3557;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filters-container button:hover {
+    background-color: #457b9d;
+    box-shadow: 0 3px 8px rgba(69, 123, 157, 0.2);
+}
+
+.filters-container button:active {
+    background-color: #1d3557;
+    box-shadow: none;
+}
+
+/* Responsive layout */
+@media (max-width: 1200px) {
+    .filters-container .filter-group {
+        flex: 1 1 calc(33.333% - 16px); /* 3 columns layout */
+    }
+}
+
+@media (max-width: 992px) {
+    .filters-container .filter-group {
+        flex: 1 1 calc(50% - 16px); /* 2 columns layout */
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-container .filter-group {
+        flex: 1 1 100%; /* Full width layout for small screens */
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;

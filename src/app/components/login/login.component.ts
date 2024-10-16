@@ -34,7 +34,8 @@ export class LoginComponent{
     .subscribe(response => {
       if (response.success) {
         const storeId = response.storeId !== null && response.storeId !== undefined ? response.storeId : 0;
-        console.log(storeId)
+        console.log(response)
+        console.log("Tienda: "+ storeId)
         this.authService.login(storeId);
       } else {
         this.response = 'Usuario o contraseña incorrectos.';

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <nav class="navbar">
     <button class="nav-button" routerLink="/stores">Tiendas</button>
     <button class="nav-button" (click)="logout()">Salir</button>
@@ -9,36 +9,70 @@
             <div class="header">
                 <div class="header-left">
                     <h2 class="text-black">Ordenes de Compra</h2>
-                    <button *ngIf="showElement" class="new-user-btn" (click)="createPurchaseOrder()">
+                    <button class="new-user-btn" (click)="createPurchaseOrder()">
                         <i class="fas fa-plus"></i> Nueva Orden
                     </button>
                 </div>
+            </div>
+            <div class="filters-container">
+              <form [formGroup]="filterForm" (ngSubmit)="getPurchaseOrders(1)">
+                <label for="codigoProducto">Código de Producto: </label>
+                <input id="codigoProducto" formControlName="codigoProducto" type="text" placeholder="Código">
+                <label for="fechaDesde"> Fecha Desde: </label>
+                <input id="fechaDesde" formControlName="fechaDesde" type="date">
+                <label for="fechaHasta"> Fecha Hasta: </label>
+                <input id="fechaHasta" formControlName="fechaHasta" type="date">
+                <label for="estado"> Estado: </label>
+                <select id="estado" formControlName="estado">
+                  <option value="SOLICITADA">Solicitada</option>
+                  <option value="RECHAZADA">Rechazada</option>
+                  <option value="ACEPTADA">Aceptada</option>
+                  <option value="RECIBIDA">Reciba</option>
+                </select>
+                <label *ngIf="isCentralUser" for="tienda"> Id de Tienda: </label>
+                <input *ngIf="isCentralUser" id="tienda" formControlName="tienda" type="text" placeholder="Tienda">
+                <button type="submit">Aplicar Filtros</button>
+                <button type="button" (click)="clearFilters()">Limpiar Filtros</button>
+              </form>
             </div>
             <div *ngIf="purchaseOrders.length > 0" class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-black">
                     <thead class="text-xs uppercase text-black bg-gray-200">
                         <tr>
                             <th scope="col" class="px-4 py-3">Estado</th>
-                            <th scope="col" class="px-4 py-3">Observaciones</th>
                             <th scope="col" class="px-4 py-3">Fecha Solicitud</th>
                             <th scope="col" class="px-4 py-3">Fecha Recepción</th>
                             <th scope="col" class="px-4 py-3">Tienda</th>
-                            <th scope="col" class="px-4 py-3">Editar</th>
+                            <th scope="col" class="px-4 py-3">Productos (codigo, cantidad)</th>
+                            <th scope="col" class="px-4 py-3">Accion</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="border-b" *ngFor="let order of purchaseOrders; index as orderIndex">
-                            <td class="px-4 py-3">{{order.estado}}</td>
-                            <td class="px-4 py-3">{{order.observaciones}}</td>
-                            <td class="px-4 py-3">{{order.fechaSolicitud | date:'shortDate'}}</td>
-                            <td class="px-4 py-3">{{order.fechaRecepcion | date:'shortDate'}}</td>
-                            <td class="px-4 py-3">{{order.idTienda}}</td>
-                            <td class="px-4 py-3 action-buttons">
-                                <button class="edit-button" routerLink="/purchase-order/edit/{{order.id}}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                            <td class="px-4 py-3">{{ order.estado }}</td>                           
+                            <td class="px-4 py-3">{{ order.fechaSolicitud ? order.fechaSolicitud : 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ order.fechaRecepcion ? order.fechaRecepcion : 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ order.idTienda }}</td>
+                            <td class="px-4 py-3">
+                              <div *ngIf="order.orders && order.orders.length > 0">
+                                {{ order.orders[0].codigo }}, {{ order.orders[0].cantidad }}
+                              </div>
+                              <div *ngIf="showDetails[orderIndex]">
+                                <ul>
+                                  <li *ngFor="let orderDetail of order.orders?.slice(1)">
+                                    {{ orderDetail.codigo }}, {{ orderDetail.cantidad }}
+                                  </li>
+                                </ul>
+                              </div>
                             </td>
-                        </tr>
+                            <td class="px-4 py-3">
+                              <div *ngIf="order.orders && order.orders.length > 1">
+                                <button (click)="toggleDetails(orderIndex)">
+                                  {{ showDetails[orderIndex] ? 'Menos detalles' : 'Mas detalles' }}
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
                     </tbody>
                 </table>
             </div>

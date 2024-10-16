@@ -1,14 +1,21 @@
+export interface GetPurchaseOrderResponse {
+    purchaseOrders: PurchaseOrder[];
+}
+
 export interface PurchaseOrder {
     id?: number;
     orders?: OrderDetail[];
     estado?: string;
     observaciones?: string;
     ordenDespacho?: string;
-    fechaSolicitud?: string | Date; 
-    fechaRecepcion?: string | Date; 
+    fechaSolicitud?: { nanos: number; seconds: number };
+    fechaRecepcion?: { nanos: number; seconds: number } | null; 
     idTienda?: number;
 }
+
 export interface OrderDetail {
-    productId: number;
-    quantity: number;
+    cantidad: number;
+    codigo: string;
+    color: string;
+    talle: string;
 }

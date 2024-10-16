@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth-service';
 import { PurchaseOrderService } from 'src/app/services/purchase_order.service';
+import { PurchaseOrder } from 'src/app/models/purchaseOrder';
 
 @Component({
   selector: 'app-purchase-order-creation',
@@ -11,60 +12,60 @@ import { PurchaseOrderService } from 'src/app/services/purchase_order.service';
 })
 export class PurchaseOrderCreationComponent {
   validatePurchaseOrder: FormGroup;
-  response: string | undefined;
+  response: string = '';
 
   constructor(
-    private authenticationService: AuthService,
-    private purchaseOrderService: PurchaseOrderService, 
-    private router: Router
-  ) {
-    this.validatePurchaseOrder = new FormGroup({
-      estado: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      observaciones: new FormControl('', [Validators.maxLength(100)]),
-      ordenDespacho: new FormControl('', [Validators.maxLength(20)]),
-      fechaSolicitud: new FormControl('', [Validators.required]),
-      fechaRecepcion: new FormControl(),
-      idTienda: new FormControl('', [Validators.required]),
+    private fb: FormBuilder, 
+    private authenticationService: AuthService, 
+    private purchaseOrderService: PurchaseOrderService,
+    private router: Router) 
+    {
+    this.validatePurchaseOrder = this.fb.group({
+      orders: this.fb.array([this.createOrder()])
     });
   }
-
+  ngOnInit(): void { 
+    console.log(localStorage.getItem('storeId'))
+  }
+  orders(): FormArray {
+    return this.validatePurchaseOrder.get('orders') as FormArray;
+  }
+  createOrder(): FormGroup {
+    return this.fb.group({
+      codigo: ['', Validators.required],
+      color: ['', Validators.required],
+      talle: ['', Validators.required],
+      cantidad: [1, [Validators.required, Validators.min(1)]]
+    });
+  }
+  addOrder(): void {
+    this.orders().push(this.createOrder());
+  }
+  removeOrder(index: number): void {
+    if (this.orders().length > 1) {
+      this.orders().removeAt(index);
+    }
+  }
   onSubmit(): void {
     this.response = "";
     if (this.validatePurchaseOrder.valid) {
-      const estado = this.validatePurchaseOrder.get('estado')?.value;
-      const observaciones = this.validatePurchaseOrder.get('observaciones')?.value;
-      const ordenDespacho = this.validatePurchaseOrder.get('ordenDespacho')?.value;
-      const fechaSolicitud = this.validatePurchaseOrder.get('fechaSolicitud')?.value;
-      const fechaRecepcion = this.validatePurchaseOrder.get('fechaRecepcion')?.value;
-      const idTienda = this.validatePurchaseOrder.get('idTienda')?.value;
-
-      this.createPurchaseOrder(estado, observaciones, ordenDespacho, fechaSolicitud, fechaRecepcion, idTienda);
+      const purchaseOrder: PurchaseOrder = {
+        idTienda: parseInt(localStorage.getItem('storeId') || '0', 10),
+        orders: this.validatePurchaseOrder.value.orders
+      };
+      console.log(purchaseOrder.idTienda)
+      this.purchaseOrderService.crearOrdenDeCompra(purchaseOrder).subscribe({
+        next: (response) => {
+          this.router.navigate(['/purchase-order']);
+        },
+        error: (error) => {
+          console.error('Error al crear la orden', error);
+        }
+      });
     } else {
       this.response = "El formulario contiene errores. Por favor, verifique los campos.";
     }
   }
-
-  createPurchaseOrder(estado: string, observaciones: string, ordenDespacho: string, fechaSolicitud: string, fechaRecepcion: string, idTienda: number): void {
-    const purchaseOrderData = {
-      estado,
-      observaciones,
-      ordenDespacho,
-      fechaSolicitud,
-      fechaRecepcion,
-      idTienda
-    };
-
-    this.purchaseOrderService.crearOrdenDeCompra(purchaseOrderData).subscribe(
-      response => {
-        this.response = "Orden de compra creada exitosamente.";
-        this.router.navigate(["/orders"]);
-      },
-      error => {
-        this.response = "Error al crear la orden de compra. " + error.message;
-      }
-    );
-  }
-
   logout() {
     this.authenticationService.logout();
   }

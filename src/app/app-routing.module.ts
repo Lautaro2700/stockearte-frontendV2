@@ -15,7 +15,6 @@ import { ProductModificationComponent } from './components/product-modification/
 import { StockCreationComponent } from './components/stock-creation/stock-creation.component';
 import { StockModificationComponent } from './components/stock-modification/stock-modification.component';
 import { PurchaseOrderCreationComponent } from './components/purchase-order-creation/purchase-order-creation.component';
-import { PurchaseOrderModificationComponent } from './components/purchase-order-modification/purchase-order-modification.component';
 import { ManagePurchaseOrdersComponent } from './components/manage-purchase-order/manage-purchase-order.component';
 
 const routes: Routes = [
@@ -34,7 +33,6 @@ const routes: Routes = [
   {path: 'stock/creation', component: StockCreationComponent, canActivate: [AuthService]},
   {path: 'stock/edit/:stockId', component: StockModificationComponent, canActivate: [AuthService]},
   {path: 'purchase-order/creation', component: PurchaseOrderCreationComponent, canActivate: [AuthService]},
-  {path: 'purchase-order/edit/:id', component: PurchaseOrderModificationComponent, canActivate: [AuthService]},
   {path: '**', redirectTo: '/stores'}
 ];
 
