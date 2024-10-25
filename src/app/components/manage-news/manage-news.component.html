@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+
+<div class="container">
+    <body id="admin-html">
+        <app-navbar [activeSection]="'NOVEDADES'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Novedades</h2>
+                </div>
+                <div class="novedades-button">
+                    <button class="nav-button" (click)="getNovedades()">Cargar Novedades</button>
+                </div>
+            </div>
+    
+            <div class="novedades-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Talle</th>
+                            <th>Color</th>
+                            <th>Stock</th>
+                            <th>Código</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of novedades">
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.nombre }}</td>
+                            <td>{{ product.talle }}</td>
+                            <td>{{ product.color }}</td>
+                            <td>{{ product.stock }}</td>
+                            <td>{{ product.codigo }}</td>
+                            <td>
+                                <button class="nav-button" (click)="darDeAlta(product)">Dar de alta</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-navbar>
+    </body>
+</div>

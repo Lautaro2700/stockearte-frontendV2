@@ -24,6 +24,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { PurchaseOrderCreationComponent } from './components/purchase-order-creation/purchase-order-creation.component';
 import { ManagePurchaseOrdersComponent } from './components/manage-purchase-order/manage-purchase-order.component';
+import { ManageNewsComponent } from './components/manage-news/manage-news.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ManagePurchaseOrdersComponent } from './components/manage-purchase-orde
     ManageStoresComponent,
     ManageUsersComponent,
     ManagePurchaseOrdersComponent,
+    ManageNewsComponent,
     StoreCreationComponent,
     StoreModificationComponent,
     UserCreationComponent,
