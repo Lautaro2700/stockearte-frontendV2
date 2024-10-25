@@ -18,7 +18,8 @@ export class NavbarComponent {
     {name: "PRODUCTOS", path: "/products"},
     {name: "STOCKS", path: "/stocks"},
     {name: "USUARIOS", path: "/users"},
-    {name: "ORDENES DE COMPRA", path: "/purchase-order"}
+    {name: "ORDENES DE COMPRA", path: "/purchase-order"},
+    {name: "NOVEDADES", path: "/news"}
   ]
 
   navigateTo(path: string){

@@ -32,4 +32,7 @@ export class ProductosService {
   eliminarProducto(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delete`, { body: { id: id } });
   }
+  getNovedades(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/novedades`, {});
+  }
 }
