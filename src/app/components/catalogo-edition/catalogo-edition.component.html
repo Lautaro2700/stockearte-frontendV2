@@ -1,0 +1,52 @@
+<nav class="navbar">
+    <button class="nav-button" routerLink="/catalogo">Catalogos</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+<div class="container">
+    <h2>Editar Catálogo</h2>
+    
+    <form (ngSubmit)="updateCatalogo()">
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" [(ngModel)]="catalogo.titulo" name="titulo" class="form-control" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="tiendaID">ID de Tienda:</label>
+        <input type="number" id="tiendaID" [(ngModel)]="catalogo.tiendaID" name="tiendaID" class="form-control" required>
+      </div>
+  
+      <h3>Productos</h3>
+      <div *ngFor="let producto of catalogo.productos; let i = index">
+        <div class="mb-3 border p-3">
+          <h4>Producto {{ i + 1 }}</h4>
+          
+          <div class="form-group">
+            <label for="nombreProducto{{ i }}">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto{{ i }}" [(ngModel)]="producto.nombre" name="nombreProducto{{ i }}" class="form-control" required>
+          </div>
+  
+          <div class="form-group">
+            <label for="talleProducto{{ i }}">Talle:</label>
+            <input type="text" id="talleProducto{{ i }}" [(ngModel)]="producto.talle" name="talleProducto{{ i }}" class="form-control">
+          </div>
+  
+          <div class="form-group">
+            <label for="colorProducto{{ i }}">Color:</label>
+            <input type="text" id="colorProducto{{ i }}" [(ngModel)]="producto.color" name="colorProducto{{ i }}" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="codigoProducto{{ i }}">Código:</label>
+            <input type="text" id="codigoProducto{{ i }}" [(ngModel)]="producto.codigo" name="codigoProducto{{ i }}" class="form-control">
+          </div>
+          <button type="button" class="btn btn-danger" (click)="catalogo.productos?.splice(i, 1)">Eliminar Producto</button>
+        </div>
+      </div>
+  
+      <button type="button" class="btn btn-primary" (click)="catalogo.productos?.push({})">Agregar Producto</button>
+      
+      <div class="form-group mt-3">
+        <button type="submit" class="btn btn-success">Actualizar Catálogo</button>
+      </div>
+    </form>
+  </div>

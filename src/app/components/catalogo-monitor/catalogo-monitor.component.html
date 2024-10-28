@@ -1,0 +1,50 @@
+<nav class="navbar">
+    <button class="nav-button" routerLink="/stores">Tiendas</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+
+<div class="container">
+    <body id="admin-html">
+        <app-navbar [activeSection]="'CATALOGOS'">
+            <div class="header">
+                <div class="header-left">
+                    <h2 class="text-black">Catálogos</h2>
+                    <button class="nav-button" (click)="createCatalogo()">Crear Catálogo</button>
+                </div>
+            </div>
+            <div>
+                <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+                <!-- List of Catalogs -->
+                <div *ngIf="catalogos.length > 0">
+                    <div *ngFor="let catalogo of catalogos; let i = index" class="catalog-card">
+                        <h3 (click)="toggleCatalog(i)" class="catalog-title">{{ catalogo.titulo }}</h3>
+                        <ul *ngIf="(expandedCatalogs[i] !== undefined ? expandedCatalogs[i] : false) && catalogo.productos && catalogo.productos.length > 0">
+                            <li *ngFor="let producto of catalogo.productos" class="product-item">
+                                <span class="product-code"><strong>Código:</strong> {{ producto.codigo }}</span><br>
+                                <span class="product-name"><strong>Nombre:</strong> {{ producto.nombre }}</span><br>
+                                <span class="product-details">
+                                    <strong>Detalles:</strong>
+                                    <span class="badge"><strong>Talle:</strong> {{ producto.talle }}</span>
+                                    <span class="badge"><strong>Color:</strong> {{ producto.color }}</span>
+                                </span>
+                            </li>
+                            <div class="align-right">
+                                <button class="nav-button btn-danger" (click)="catalogo.id !== undefined ? deleteCatalogo(catalogo.id) : null">Eliminar Catálogo</button>
+                                <button class="nav-button btn-warning" [routerLink]="['/catalogo', 'edit', catalogo.id]">Editar Catálogo</button>
+                            </div>
+                        </ul>
+                        <p *ngIf="catalogo.productos && catalogo.productos.length === 0">
+                            No hay productos en este catálogo.
+                        </p>
+                        
+                    </div>
+                </div>
+                <!-- Message if No Catalogs Available -->
+                <div *ngIf="catalogos.length === 0 && !errorMessage">
+                    No hay catálogos disponibles.
+                </div>
+            </div>
+        </app-navbar>
+    </body>
+</div>

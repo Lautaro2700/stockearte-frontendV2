@@ -1,0 +1,52 @@
+<nav class="navbar">
+    <button class="nav-button" routerLink="/catalogo">Catalogos</button>
+    <button class="nav-button" (click)="logout()">Salir</button>
+</nav>
+
+<div class="container">
+    <h2>Crear Nuevo Catálogo</h2>
+    <div class="form-wrapper">
+        <form (ngSubmit)="onSubmit()" #catalogoForm="ngForm" class="catalogo-form">
+            <div class="form-group">
+                <label for="titulo">Título del Catálogo:</label>
+                <input type="text" id="titulo" name="titulo" class="form-control" [(ngModel)]="catalogo.titulo"
+                    required />
+            </div>
+            <div class="form-group">
+                <label for="tiendaID">Tienda ID:</label>
+                <input type="number" id="tiendaID" name="tiendaID" class="form-control" [(ngModel)]="catalogo.tiendaID"
+                    required />
+            </div>
+
+            <div class="form-group">
+                <h3>Productos</h3>
+                <div *ngFor="let producto of catalogo.productos; let i = index" class="producto">
+                    <h4>Producto {{ i + 1 }}</h4>
+
+                    <label for="codigo">Código:</label>
+                    <input type="text" id="codigo" name="codigo" [(ngModel)]="producto.codigo" class="form-control"
+                        required />
+
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" [(ngModel)]="producto.nombre" class="form-control"
+                        required />
+
+                    <label for="talle">Talle:</label>
+                    <input type="text" id="talle" name="talle" [(ngModel)]="producto.talle" class="form-control" />
+
+                    <label for="color">Color:</label>
+                    <input type="text" id="color" name="color" [(ngModel)]="producto.color" class="form-control" />
+
+                    <label for="foto">Foto:</label>
+                    <input type="text" id="foto" name="foto" [(ngModel)]="producto.foto" class="form-control" />
+
+                    <button type="button" (click)="removeProduct(i)" class="btn btn-danger">Eliminar Producto</button>
+                </div>
+
+                <button type="button" (click)="addProduct()" class="btn btn-secondary">Agregar Producto</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Crear Catálogo</button>
+        </form>
+    </div>
+</div>
