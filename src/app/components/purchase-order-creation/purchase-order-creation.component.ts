@@ -50,10 +50,10 @@ export class PurchaseOrderCreationComponent {
     this.response = "";
     if (this.validatePurchaseOrder.valid) {
       const purchaseOrder: PurchaseOrder = {
-        idTienda: parseInt(localStorage.getItem('storeId') || '0', 10),
+        id_tienda: parseInt(localStorage.getItem('storeId') || '0', 10),
         orders: this.validatePurchaseOrder.value.orders
       };
-      console.log(purchaseOrder.idTienda)
+      console.log(purchaseOrder.id_tienda)
       this.purchaseOrderService.crearOrdenDeCompra(purchaseOrder).subscribe({
         next: (response) => {
           this.router.navigate(['/purchase-order']);

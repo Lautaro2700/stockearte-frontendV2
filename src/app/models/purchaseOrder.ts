@@ -10,7 +10,7 @@ export interface PurchaseOrder {
     ordenDespacho?: string;
     fechaSolicitud?: { nanos: number; seconds: number };
     fechaRecepcion?: { nanos: number; seconds: number } | null; 
-    idTienda?: number;
+    id_tienda?: number;
 }
 
 export interface OrderDetail {

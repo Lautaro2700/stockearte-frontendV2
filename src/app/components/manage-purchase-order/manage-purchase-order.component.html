@@ -84,7 +84,6 @@
                             <th scope="col" class="px-4 py-3">Estado</th>
                             <th scope="col" class="px-4 py-3">Fecha Solicitud</th>
                             <th scope="col" class="px-4 py-3">Fecha Recepción</th>
-                            <th scope="col" class="px-4 py-3">Tienda</th>
                             <th scope="col" class="px-4 py-3">Productos (codigo, cantidad)</th>
                             <th scope="col" class="px-4 py-3">Accion</th>
                         </tr>
@@ -94,7 +93,6 @@
                             <td class="px-4 py-3">{{ order.estado }}</td>                           
                             <td class="px-4 py-3">{{ order.fechaSolicitud ? order.fechaSolicitud : 'N/A' }}</td>
                             <td class="px-4 py-3">{{ order.fechaRecepcion ? order.fechaRecepcion : 'N/A' }}</td>
-                            <td class="px-4 py-3">{{ order.idTienda }}</td>
                             <td class="px-4 py-3">
                               <div *ngIf="order.orders && order.orders.length > 0">
                                 {{ order.orders[0].codigo }}, {{ order.orders[0].cantidad }}
